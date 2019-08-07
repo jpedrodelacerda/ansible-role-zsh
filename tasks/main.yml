@@ -1,0 +1,53 @@
+---
+- name: Check for zsh package
+  become: yes
+  pacman:
+    name: zsh
+    state: present
+  tags:
+    - ohmyzsh
+	- spaceship
+	- zshrc
+
+- name: Change default shell
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+  tags:
+    - ohmyzsh
+	- spaceship
+	- zshrc
+
+- name: Install oh-my-zsh from AUR
+  aur:
+    name: oh-my-zsh-git
+  tags:
+    - ohmyzsh
+
+- name: Clone spaceship-prompt
+  become: yes
+  git:
+    repo: https://github.com/denysdovhan/spaceship-prompt.git
+    dest: "/usr/share/oh-my-zsh/custom/themes/spaceship-prompt"
+    version: "master"
+    force: yes
+  tags
+    - spaceship
+
+- name: Link spaceship-prompt theme
+  become: yes
+  file:
+    src: "/usr/share/oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "/usr/share/oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    state: link
+  tags
+    - spaceship
+
+- name: Generate .zshrc
+  template:
+    src: ../templates/zshrc.j2
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+  tags:
+    - zshrc
+    - spaceship

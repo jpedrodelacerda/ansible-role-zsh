@@ -1,0 +1,36 @@
+export ZSH=/usr/share/oh-my-zsh
+
+ZSH_THEME="{{ zsh_theme | default("agnoster") }}"
+
+export LANG={{ zsh_lang }}
+
+# Oh-my-zsh plugins:
+plugins=(
+{% for item in ohmyzsh_plugins %}
+  {{ item }}
+{% endfor %}
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# Spaceship configuration:
+{% for item in spaceship_config %}
+{{ item }}
+{% endfor %}
+
+# Spaceship Prompt:
+SPACESHIP_PROMPT_ORDER=(
+{% for item in spaceship_prompt %}
+  {{ item }}
+{% endfor %}
+)
+
+# Custom functions:
+{% for func in zsh_custom_functions %}
+{{ func }}
+{% endfor %}
+
+# Aliases
+{% for alias in zsh_aliases %}
+{{ alias }}
+{% endfor %}

@@ -1,0 +1,33 @@
+---
+zsh_theme: "spaceship"
+
+ohmyzsh_plugins:
+  - git
+
+# See spaceship documentation
+spaceship_prompt:
+  - user
+  - host
+  - dir
+  - git
+  - exec_time
+  - line_sep
+  - jobs
+  - exit_code
+  - char
+
+# See spaceship documentation
+spaceship_config:
+  - SPACESHIP_USER_SHOW=always
+  - SPACESHIP_DIR_PREFIX="@"
+  - SPACESHIP_GIT_BRANCH_COLOR="green"
+
+aliases:
+  - zshconfig="$EDITOR ~/.zshrc"
+
+zsh_config:
+  - ENABLE_CORRECTION="true"
+
+zsh_custom_functions:
+
+zsh_lang: en_US.UTF-8
